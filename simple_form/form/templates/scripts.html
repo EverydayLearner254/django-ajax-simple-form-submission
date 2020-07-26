@@ -1,0 +1,36 @@
+
+<script>
+    $("#messageForm").submit(function(event){
+        event.preventDefault();
+        console.log("Submitting form.............")
+
+        $.ajax({
+            url: "save/",
+            data:$("#messageForm").serialize(),
+            dataType:"json",
+            type: "POST",
+            success: function(data){
+                if(data.msg === 'Success')
+                    clear_form()
+                    alert("Form submitted successfully");
+                    closeModal()
+            }
+        });
+
+    });
+
+    function closeModal(){
+        event.preventDefault();
+        console.log("Closing modal..........")
+        $('#myModal').modal( 'hide' );
+        return false;
+    }
+
+    function clear_form (){
+        console.log("Clearing form..........")
+        $("#messageForm").each(function(){
+            this.reset();
+        });
+    }
+
+</script>
