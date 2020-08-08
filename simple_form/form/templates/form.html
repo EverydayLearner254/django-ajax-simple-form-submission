@@ -27,25 +27,20 @@
                         </div>
 
                         <div class="modal-body">
-                            <form method="POST" action="save/" id="messageForm">
+                            <form method="POST" action="/save" id="messageForm">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     {{ form.as_p }}
                                     <button type="submit" class="btn btn-default">Submit</button>
                                 </div>
                             </form>
-
                         </div>
-
                         <div class="modal-footer">
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
-
     </body>
 
     {% include 'scripts.html' %}

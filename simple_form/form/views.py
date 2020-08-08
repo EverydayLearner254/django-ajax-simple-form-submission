@@ -30,6 +30,7 @@ def save(request):
     if request.is_ajax():
         print("----------request.is_ajax-----------")
         form = MessageForm(request.POST, None)
+
         if form.is_valid():
             print("----------form valid-----------")
             form.save()
@@ -37,8 +38,10 @@ def save(request):
             return JsonResponse({
                 'msg': 'Success'
             })
-
+        else:
+            return JsonResponse({
+                'msg': form.errors
+            })
         form = MessageForm(request.POST)
 
     return render(request, 'basic_form.html')
-    

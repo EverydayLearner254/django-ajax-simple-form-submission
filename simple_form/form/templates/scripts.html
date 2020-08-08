@@ -4,20 +4,43 @@
         event.preventDefault();
         console.log("Submitting form.............")
 
-        $.ajax({
-            url: "save/",
-            data:$("#messageForm").serialize(),
-            dataType:"json",
-            type: "POST",
-            success: function(data){
-                if(data.msg === 'Success')
-                    clear_form()
-                    alert("Form submitted successfully");
-                    closeModal()
-            }
-        });
+        var email = document.forms['messageForm'].elements['email'].value;
+
+        let valid_email = ValidateEmail(email);
+        console.log("valid_email: " + valid_email);
+
+        if (valid_email)
+        {
+            $.ajax({
+                url: "/save/",
+                data:$("#messageForm").serialize(),
+                dataType:"json",
+                type: "POST",
+                success: function(data){
+                    if(data.msg === 'Success'){
+                        clear_form()
+                        alert("Form submitted successfully");
+                        closeModal()
+                    }
+                    else{
+                        alert("Error submitting form. Please check if the fields are correct.")
+                    }
+                }
+
+            });
+        }
 
     });
+
+    function ValidateEmail(email) 
+    {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+        {
+            return (true)
+        }
+        alert("You have entered an invalid email address!")
+        return (false)
+    }
 
     function closeModal(){
         event.preventDefault();
